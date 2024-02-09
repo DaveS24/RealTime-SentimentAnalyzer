@@ -7,6 +7,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Removal of stopwords from the dataset in the data_preprocessor.ipynb file.
+- Analysis of the dataset in the data_loader.ipynb file by
+    - visualizing basic statistics.
+    - visualizing the sentiment distribution.
+    - visualizing the word cloud.
+    - visualizing the embeddings using t-SNE.
+- Tokenization of the dataset in the data_preprocessor.ipynb file.
+
 
 ## [0.1.1] - 2024-02-08
 
@@ -18,9 +28,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Loading the dataset in the data_loader.ipynb file.
 - Dropping missing values from the dataset in the data_preprocessor.ipynb file.
 - Preprocessing the dataset in the data_preprocessor.ipynb file using the `nltk` library to
-    - tokenize
-    - remove punctuation
-    - remove stopwords
+    - tokenize.
+    - remove punctuation.
     - perform stemming or lemmatization.
 
 
