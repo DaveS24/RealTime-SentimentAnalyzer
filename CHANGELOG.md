@@ -5,7 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
-## [Unreleased]
+## [0.2.0] - 2024-02-09
+
+### Added
+
+- The rnn_model.ipynb file to create the RNN model.
+- Building the basic RNN model in the rnn_model.ipynb file.
+- Training the RNN model in the rnn_model.ipynb file.
+- Evaluating the RNN model in the rnn_model.ipynb file.
+
+### Fixed
+
+- The train-test-dev split in the data_preprocessor.ipynb file.
+
+
+## [0.1.2] - 2024-02-09
 
 ### Added
 
@@ -16,6 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
     - visualizing the word cloud.
     - visualizing the embeddings using t-SNE.
 - Tokenization of the dataset in the data_preprocessor.ipynb file.
+- Splitting the dataset into training and testing sets in the data_preprocessor.ipynb file.
 
 
 ## [0.1.1] - 2024-02-08
