@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
+## [0.2.1] - 2024-02-10
+
+### Added
+
+- The data_preparation.py file to handle all of the data preparation steps.
+- The data_analysis.ipynb file to analyze the dataset.
+- The rnn_model.py file to create the RNN model.
+- Comparing results of the RNN model across different input-data in the rnn_analysis.ipynb file.
+
+### Changed
+
+- Renamed the rnn_model.ipynb file to rnn_analysis.ipynb and moved the RNN model creation and training to the rnn_model.py file.
+- Data loading and preprocessing steps to be handled in the data_preparation.py file.
+- Data analysis steps to be handled in the data_analysis.ipynb file.
+
+### Removed
+
+- The data_loader.ipynb file.
+- The data_preprocessor.ipynb file.
+
+
 ## [0.2.0] - 2024-02-09
 
 ### Added
