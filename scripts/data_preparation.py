@@ -9,7 +9,7 @@ from keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 
-DATA_PREFIX = './data/stanfordSentimentTreebank/'
+DATA_PREFIX = '../data/stanfordSentimentTreebank/'
 MAX_FEATURES = 10000
 MAX_SEQUENCE_LENGTH = 100
 
@@ -23,9 +23,9 @@ def data_loader():
 
     # Merge all dataframes
     sentiment_data_df = (sentences_df
-                    .merge(dictionary_df, left_on='sentence', right_on='phrase', how='left')
-                    .merge(sentiment_labels_df, on='phrase ids', how='left')
-                    .merge(dataset_split_df, on='sentence_index', how='left'))
+                         .merge(dictionary_df, left_on='sentence', right_on='phrase', how='left')
+                         .merge(sentiment_labels_df, on='phrase ids', how='left')
+                         .merge(dataset_split_df, on='sentence_index', how='left'))
     
     # Drop missing values
     sentiment_data_df = sentiment_data_df.dropna()

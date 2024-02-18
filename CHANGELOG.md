@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
+## [Unreleased]
+
+### Added
+
+- The transformer_analysis.ipynb file to analyze the transformer model.
+- The transformer_model.py file to create the transformer model.
+
+### Changed
+
+- Structure of the project to be more modular.
+
+### Fixed
+
+- The .gitignore file to ignore the .vscode directory.
+
+
+## [0.2.2] - 2024-02-16
+
+### Added
+
+- Set a fixed seed for reproducibility in the rnn_model.py file.
+
+### Changed
+
+- The hyperparameters of the RNN model to reduce overfitting.
+- Testing out multiple layers to the RNN model in the rnn_model.py file.
+
+### Fixed
+
+- A .gitignore issue where the __pycache__ directory was not being ignored.
+
+
 ## [0.2.1] - 2024-02-10
 
 ### Added
