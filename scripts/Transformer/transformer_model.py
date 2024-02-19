@@ -1,4 +1,4 @@
-import scripts.data_preparation as dp
+import data_preparation as dp
 
 from math import sqrt
 from sklearn.metrics import mean_squared_error, r2_score

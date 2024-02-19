@@ -19,6 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Fixed
 
 - The .gitignore file to ignore the .vscode directory.
+- Some importing issues in both the rnn_model.py and transformer_model.py files.
+- An issue with downloading the necessary nltk packages in the data_preparation.py file.
 
 
 ## [0.2.2] - 2024-02-16

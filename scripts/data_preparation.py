@@ -1,5 +1,6 @@
 import pandas as pd
 import string
+import nltk
 
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
@@ -9,7 +10,7 @@ from keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 
-DATA_PREFIX = '../data/stanfordSentimentTreebank/'
+DATA_PREFIX = '../../data/stanfordSentimentTreebank/'
 MAX_FEATURES = 10000
 MAX_SEQUENCE_LENGTH = 100
 
@@ -29,6 +30,14 @@ def data_loader():
     
     # Drop missing values
     sentiment_data_df = sentiment_data_df.dropna()
+
+    # Download necessary nltk data if not already available
+    if not nltk.download('punkt', download_dir=nltk.data.path[0], quiet=True):
+        nltk.download('punkt')
+    if not nltk.download('stopwords', download_dir=nltk.data.path[0], quiet=True):
+        nltk.download('stopwords')
+    if not nltk.download('wordnet', download_dir=nltk.data.path[0], quiet=True):
+        nltk.download('wordnet')
 
     # Tokenize the text data
     sentiment_data_df['tokenized_text'] = sentiment_data_df['sentence'].str.lower().apply(word_tokenize)
