@@ -8,19 +8,19 @@ from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 from keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.utils import to_categorical
 
 
-DATA_PREFIX = '../../data/stanfordSentimentTreebank/'
 MAX_FEATURES = 10000
 MAX_SEQUENCE_LENGTH = 100
 
 
-def data_loader():
+def data_loader(data_prefix):
     # Load all dataframes
-    sentences_df = pd.read_csv(DATA_PREFIX + 'datasetSentences.txt', sep='\t')
-    dictionary_df = pd.read_csv(DATA_PREFIX + 'dictionary.txt', sep='|', names=['phrase', 'phrase ids'])
-    sentiment_labels_df = pd.read_csv(DATA_PREFIX + 'sentiment_labels.txt', sep='|')
-    dataset_split_df = pd.read_csv(DATA_PREFIX + 'datasetSplit.txt', sep=',')
+    sentences_df = pd.read_csv(data_prefix + 'datasetSentences.txt', sep='\t')
+    dictionary_df = pd.read_csv(data_prefix + 'dictionary.txt', sep='|', names=['phrase', 'phrase ids'])
+    sentiment_labels_df = pd.read_csv(data_prefix + 'sentiment_labels.txt', sep='|')
+    dataset_split_df = pd.read_csv(data_prefix + 'datasetSplit.txt', sep=',')
 
     # Merge all dataframes
     sentiment_data_df = (sentences_df
@@ -31,6 +31,13 @@ def data_loader():
     # Drop missing values
     sentiment_data_df = sentiment_data_df.dropna()
 
+    # Convert sentiment scores to class labels
+    sentiment_data_df['sentiment_values'] = pd.cut(sentiment_data_df['sentiment_values'], bins=[0, 0.2, 0.4, 0.6, 0.8, 1], labels=False, include_lowest=True)
+    
+    return sentiment_data_df
+
+
+def data_preprocessor(sentiment_data_df):
     # Download necessary nltk data if not already available
     if not nltk.download('punkt', download_dir=nltk.data.path[0], quiet=True):
         nltk.download('punkt')
@@ -41,11 +48,7 @@ def data_loader():
 
     # Tokenize the text data
     sentiment_data_df['tokenized_text'] = sentiment_data_df['sentence'].str.lower().apply(word_tokenize)
-    
-    return sentiment_data_df
 
-
-def data_preprocessor(sentiment_data_df):
     # Remove punctuation
     sentiment_data_df['no_punctuation_text'] = sentiment_data_df['tokenized_text'].apply(lambda x: [word for word in x if word not in string.punctuation])
 
@@ -76,8 +79,11 @@ def train_test_dev_split(sentiment_data_df, split_column='tokenized_text'):
     test_mask = sentiment_data_df['splitset_label'] == 2
     dev_mask = sentiment_data_df['splitset_label'] == 3
 
-    train_data = (sentiment_data[train_mask], sentiment_data_df[train_mask]['sentiment values'].values)
-    test_data = (sentiment_data[test_mask], sentiment_data_df[test_mask]['sentiment values'].values)
-    dev_data = (sentiment_data[dev_mask], sentiment_data_df[dev_mask]['sentiment values'].values)
+    # Convert integer labels to one-hot encoded labels
+    sentiment_values_one_hot = to_categorical(sentiment_data_df['sentiment_values'])
+
+    train_data = (sentiment_data[train_mask], sentiment_values_one_hot[train_mask])
+    test_data = (sentiment_data[test_mask], sentiment_values_one_hot[test_mask])
+    dev_data = (sentiment_data[dev_mask], sentiment_values_one_hot[dev_mask])
 
     return train_data, test_data, dev_data

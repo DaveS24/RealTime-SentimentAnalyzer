@@ -7,6 +7,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+
+## [0.4.0] - 2024-02-19
+
+### Changed
+
+- Transitioned the problem from a regression task to a five-class classification task.
+    - The five classes are: very negative, negative, neutral, positive, and very positive.
+    - Updated the data_preparation.py file to handle the new classification task.
+    - Updated the data_analysis.ipynb file to analyze the new classification task.
+
+
+## [0.3.0] - 2024-02-19
+
 ### Added
 
 - The transformer_analysis.ipynb file to analyze the transformer model.

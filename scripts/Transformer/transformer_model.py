@@ -1,5 +1,7 @@
 import data_preparation as dp
 
+import numpy as np
+
 from math import sqrt
 from sklearn.metrics import mean_squared_error, r2_score
 
@@ -48,14 +50,14 @@ def train_and_evaluate(sentiment_data_df, column_method='tokenized_text'):
     early_stopping = EarlyStopping(monitor='val_loss', patience=3)
     
     # Build and train the model
-    model, tokenizer = build_model()
-    train_encodings = tokenizer(train_data[0].tolist(), truncation=True, padding=True, max_length=MAX_SEQUENCE_LENGTH)
-    dev_encodings = tokenizer(dev_data[0].tolist(), truncation=True, padding=True, max_length=MAX_SEQUENCE_LENGTH)
-    model.fit([train_encodings['input_ids'], train_encodings['attention_mask']], train_data[1], epochs=20, batch_size=32, validation_data=([dev_encodings['input_ids'], dev_encodings['attention_mask']], dev_data[1]), callbacks=[early_stopping])
+    model, _ = build_model()  # tokenizer is not needed
+    train_encodings = train_data[0]
+    dev_encodings = dev_data[0]
+    model.fit([train_encodings, np.ones(train_encodings.shape)], train_data[1], epochs=20, batch_size=32, validation_data=([dev_encodings, np.ones(dev_encodings.shape)], dev_data[1]), callbacks=[early_stopping])
 
     # Evaluate the model
-    test_encodings = tokenizer(test_data[0].tolist(), truncation=True, padding=True, max_length=MAX_SEQUENCE_LENGTH)
-    test_predictions = model.predict([test_encodings['input_ids'], test_encodings['attention_mask']])
+    test_encodings = test_data[0]
+    test_predictions = model.predict([test_encodings, np.ones(test_encodings.shape)])
     rmse = sqrt(mean_squared_error(test_data[1], test_predictions))
     r2 = r2_score(test_data[1], test_predictions)
 
