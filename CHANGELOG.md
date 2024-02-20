@@ -8,6 +8,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 
+## [0.4.1] - 2024-02-20
+
+### Added
+
+- Class weights to the RNN model to handle the class imbalance in the rnn_model.py file.
+- The rnn_results.csv file to store the results for different RNN model-hyperparameters.
+- Confusion matrices for each RNN model in the rnn_analysis.ipynb file.
+
+### Changed
+
+- Updated the README.md file to include the new classification task.
+
+### Fixed
+
+- A plotting issue in the data_analysis.ipynb file.
+
+
 ## [0.4.0] - 2024-02-19
 
 ### Changed

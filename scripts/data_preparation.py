@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import string
 import nltk
@@ -6,6 +7,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
+from sklearn.utils import class_weight
 from keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.utils import to_categorical
@@ -65,6 +67,15 @@ def data_preprocessor(sentiment_data_df):
     sentiment_data_df['lemmatized_text'] = sentiment_data_df['tokenized_text'].apply(lambda x: [lemmatizer.lemmatize(word) for word in x])
 
     return sentiment_data_df
+
+
+def class_weights(classes):
+    # Compute class weights
+    class_weights = class_weight.compute_class_weight(class_weight='balanced', classes=np.unique(classes), y=classes)
+    d_class_weights = dict(enumerate(class_weights))
+
+    return d_class_weights
+    
 
 
 def train_test_dev_split(sentiment_data_df, split_column='tokenized_text'):
